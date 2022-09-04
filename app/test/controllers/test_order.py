@@ -53,7 +53,6 @@ def test_calculate_order_price(app, ingredients, size, client_data):
                                                                        size])
     order = __order(created_ingredients, created_size, client_data)
     created_order, _ = OrderController.create(order)
-    print(created_order)
     pytest.assume(created_order['total_price'] == round(
         created_size['price'] + sum(ingredient['price'] for ingredient in created_ingredients), 2))
 
