@@ -1,4 +1,5 @@
-
+from dotenv import load_dotenv
+from os.path import dirname, join
 
 import pytest
 from flask.cli import FlaskGroup
@@ -20,6 +21,8 @@ migrate.init_app(flask_app, db)
 def test():
     return pytest.main(['-v', './app/test'])
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 if __name__ == '__main__':
     manager()
