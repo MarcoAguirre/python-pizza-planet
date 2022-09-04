@@ -1,0 +1,44 @@
+name: CI L'ultima cena
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.6
+
+      - name: Set development env
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          python manage.py db init
+          python manage.py db migrate
+          python manage.py db upgrade
+      
+      - name: Run and save all tests
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          echo Starting tests and creating reports...
+          pytest --cov-report html:htmlcov --cov=app app/test --disable-warnings
+          echo Reports created!!
+
+      - name: Create downloadable content
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Tests-reports
+          path: htmlcov
+
+      - name: Finish
+        run:  echo FINISHED!!!
