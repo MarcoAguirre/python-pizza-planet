@@ -34,5 +34,11 @@ jobs:
           pytest --cov-report html:htmlcov --cov=app app/test --disable-warnings
           echo Reports created!!
 
+      - name: Create downloadable content
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Tests-reports
+          path: htmlcov
+
       - name: Finish
         run:  echo FINISHED!!!
