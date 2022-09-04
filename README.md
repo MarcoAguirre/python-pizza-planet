@@ -85,7 +85,7 @@ set FLASK_ENV=development
 - Run the project with:
 
 ```bash
-python3 manage.py run
+python manage.py run
 ```
 
 ## Running the frontend
