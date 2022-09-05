@@ -22,7 +22,7 @@ def test_get_order_by_id_service(client, order, order_uri):
         pytest.assume(returned_order[param] == value)
 
 
-def test_get_ingredients_service(client, create_orders, order_uri):
+def test_get_orders_service(client, create_orders, order_uri):
     response = client.get(order_uri)
     pytest.assume(response.status.startswith('200'))
     returned_orders = {
