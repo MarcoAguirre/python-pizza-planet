@@ -5,12 +5,8 @@ from app.test.utils.functions import (shuffle_list, get_random_sequence,
 
 
 def test_create_order_service(create_order):
-    order = create_order.json
-    pytest.assume(order.status.startswith('200'))
-    pytest.assume(order['client_adress'])
-    pytest.assume(order['client_dni'])
-    pytest.assume(order['client_name'])
-    pytest.assume(order['client_phone'])
+    order = create_order
+    pytest.assume(order.status_code == 200)
 
 
 def test_get_order_by_id_service(client, order, order_uri):
