@@ -1,7 +1,11 @@
 import pytest
 
+import datetime
+
+import random
+
 from ..utils.functions import (shuffle_list, get_random_sequence,
-                               get_random_string)
+                               get_random_string, get_random_price)
 
 
 def client_data_mock() -> dict:
@@ -10,6 +14,15 @@ def client_data_mock() -> dict:
         'client_dni': get_random_sequence(),
         'client_name': get_random_string(),
         'client_phone': get_random_sequence()
+    }
+
+
+def order_data_mock() -> dict:
+    return {
+        **client_data(),
+        'date': datetime.datetime.now(),
+        'total_price': get_random_price(),
+        'size_id': random.randint(1, 10)
     }
 
 
