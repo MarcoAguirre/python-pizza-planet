@@ -44,7 +44,7 @@ def client_data():
 
 
 @pytest.fixture
-def create_order(order_post_uri, client) -> dict:
+def create_order(order_post_uri) -> dict:
     response = requests.post(order_post_uri, json=order_data_mock())
     return response
 
