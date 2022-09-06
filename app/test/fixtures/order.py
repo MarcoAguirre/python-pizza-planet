@@ -4,6 +4,8 @@ import datetime
 
 import random
 
+import requests
+
 from ..utils.functions import (shuffle_list, get_random_sequence,
                                get_random_string, get_random_price)
 
@@ -20,9 +22,9 @@ def client_data_mock() -> dict:
 def order_data_mock() -> dict:
     return {
         **client_data_mock(),
-        'date': datetime.datetime.now(),
+        'date': str(datetime.datetime.now()),
         'total_price': get_random_price(1, 50),
-        'size_id': random.randint(1, 10)
+        'size_id': random.randint(3, 10)
     }
 
 
@@ -32,20 +34,25 @@ def order_uri():
 
 
 @pytest.fixture
+def order_post_uri():
+    return 'http://127.0.0.1:5000/order/'
+
+
+@pytest.fixture
 def client_data():
     return client_data_mock()
 
 
 @pytest.fixture
-def create_order(order_uri, client) -> dict:
-    response = client.post(order_uri, json=order_data_mock())
+def create_order(order_post_uri, client) -> dict:
+    response = requests.post(order_post_uri, json=order_data_mock())
     return response
 
 
 @pytest.fixture
 def order(create_ingredients, create_size, client_data) -> dict:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
-    size_id = create_size.get('_id')
+    size_id = create_size.json.get('_id')
     return {
         **client_data_mock(),
         'ingredients': ingredients,
