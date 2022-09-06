@@ -4,8 +4,8 @@ from app.test.utils.functions import (shuffle_list, get_random_sequence,
                                       get_random_string)
 
 
-def test_create_order_service(order):
-    order = order.json
+def test_create_order_service(create_order):
+    order = create_order.json
     pytest.assume(order.status.startswith('200'))
     pytest.assume(order['client_adress'])
     pytest.assume(order['client_dni'])
