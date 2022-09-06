@@ -19,9 +19,9 @@ def client_data_mock() -> dict:
 
 def order_data_mock() -> dict:
     return {
-        **client_data(),
+        **client_data_mock(),
         'date': datetime.datetime.now(),
-        'total_price': get_random_price(),
+        'total_price': get_random_price(1, 50),
         'size_id': random.randint(1, 10)
     }
 
@@ -34,6 +34,12 @@ def order_uri():
 @pytest.fixture
 def client_data():
     return client_data_mock()
+
+
+@pytest.fixture
+def create_order(order_uri, client) -> dict:
+    response = client.post(order_uri, json=order_data_mock())
+    return response
 
 
 @pytest.fixture
