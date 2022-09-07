@@ -5,8 +5,8 @@ from app.test.utils.functions import (shuffle_list, get_random_sequence,
 
 
 def test_create_order_service(create_order):
-    order = create_order
-    pytest.assume(order.status_code == 200)
+    created_order = create_order
+    pytest.assume(created_order.status.startswith('308'))
 
 
 def test_get_order_by_id_service(client, order, order_uri):
