@@ -42,13 +42,14 @@ def create_order(client, order_uri, create_ingredients, create_size, client_data
 
 
 @pytest.fixture
-def create_order_detail(create_ingredients, create_size):
+def detail_created_order(create_ingredients, create_size):
     ingredient_ids = [ingredient.get('_id')
                       for ingredient in create_ingredients]
     ingredient_names = [ingredient.get('name')
                         for ingredient in create_ingredients]
     size_id = create_size.json.get('_id')
     return {
+        'client_data': client_data_mock(),
         'ingredients_ids': ingredient_ids,
         'ingredients_names': ingredient_names,
         'size_id': size_id
