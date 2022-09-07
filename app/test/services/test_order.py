@@ -9,13 +9,15 @@ def test_create_order_service(create_order):
     pytest.assume(created_order.status.startswith('308'))
 
 
-def test_get_order_by_id_service(client, order, order_uri):
-    current_order = order.json
-    response = client.get(f'{order_uri}id/{current_order["_id"]}')
-    pytest.assume(response.status.startswith('200'))
-    returned_order = response.json
-    for param, value in current_order.items():
-        pytest.assume(returned_order[param] == value)
+def test_check_order_values(create_order_detail):
+    current_order = create_order_detail
+    pytest.assume(type(current_order['size_id']) == int)
+    returned_order_ids = current_order['ingredients_ids']
+    for ingredient_id in returned_order_ids:
+        pytest.assume(type(ingredient_id) == int)
+    returned_order_names = current_order['ingredients_names']
+    for ingredient_name in returned_order_names:
+        pytest.assume(type(ingredient_name) == str)
 
 
 def test_get_orders_service(client, create_orders, order_uri):
