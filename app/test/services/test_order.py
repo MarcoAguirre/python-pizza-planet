@@ -4,7 +4,7 @@ import pytest
 """
 - This first test will only check if the order was successfully created.
 - A more accurate test could be done, however, it requires the server running and
-running the server is not possible in GitHub actions.
+running the server is not possible in GitHub actions. (Ticket already created)
 """
 
 
