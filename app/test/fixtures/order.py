@@ -1,12 +1,8 @@
 import pytest
 
-import datetime
-
-import random
-
 
 from ..utils.functions import (shuffle_list, get_random_sequence,
-                               get_random_string, get_random_price)
+                               get_random_string)
 
 
 def client_data_mock() -> dict:
