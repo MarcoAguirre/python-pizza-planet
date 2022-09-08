@@ -42,15 +42,9 @@ def create_order(client, order_uri, order_mock) -> dict:
 
 
 @pytest.fixture
-def create_orders(client, order_uri, create_ingredients, create_sizes) -> list:
-    ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
-    sizes = [size.get('_id') for size in create_sizes]
+def create_orders(create_order) -> list:
     orders = []
-    for _ in range(10):
-        new_order = client.post(order_uri, json={
-            **client_data_mock(),
-            'ingredients': shuffle_list(ingredients)[:5],
-            'size_id': shuffle_list(sizes)[0]
-        })
+    for order in range(10):
+        new_order = create_order
         orders.append(new_order)
     return orders
