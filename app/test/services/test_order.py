@@ -4,9 +4,6 @@ import pytest
 def test_create_order_service(create_order):
     order = create_order.json
     pytest.assume(create_order.status.startswith('200'))
-    pytest.assume(order['_id'])
-    pytest.assume(order['name'])
-    pytest.assume(order['price'])
 
 
 def test_get_order_by_id_service(client, create_order, order_uri):
