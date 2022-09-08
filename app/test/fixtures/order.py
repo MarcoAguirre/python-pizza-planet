@@ -28,7 +28,7 @@ def order_mock(create_ingredients, create_size, client_data) -> dict:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
     size_id = create_size.json.get('_id')
     order = {
-        **client_data_mock(),
+        **client_data,
         'ingredients': ingredients,
         'size_id': size_id
     }
