@@ -31,7 +31,7 @@ def test_get_size_by_id_service(client, create_size, size_uri):
         pytest.assume(returned_size[param] == value)
 
 
-def test_get_ingredients_service(client, create_sizes, size_uri):
+def test_get_sizes_service(client, create_sizes, size_uri):
     response = client.get(size_uri)
     pytest.assume(response.status.startswith('200'))
     returned_sizes = {
