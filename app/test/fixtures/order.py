@@ -36,6 +36,12 @@ def order_mock(create_ingredients, create_size, client_data) -> dict:
 
 
 @pytest.fixture
+def create_order(client, order_mock, order_uri) -> dict:
+    response = client.post(order_uri, json=order_mock)
+    return response
+
+
+@pytest.fixture
 def create_orders(client, order_uri, create_ingredients, create_sizes) -> list:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
     sizes = [size.get('_id') for size in create_sizes]
