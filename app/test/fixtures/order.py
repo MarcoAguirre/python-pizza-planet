@@ -24,9 +24,9 @@ def client_data():
 
 
 @pytest.fixture
-def order(create_ingredients, create_size, client_data) -> dict:
+def order_mock(create_ingredients, create_size, client_data) -> dict:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
-    size_id = create_size.get('_id')
+    size_id = create_size.json.get('_id')
     return {
         **client_data_mock(),
         'ingredients': ingredients,
