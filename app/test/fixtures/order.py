@@ -36,7 +36,7 @@ def order_mock(create_ingredients, create_size, client_data) -> dict:
 
 
 @pytest.fixture
-def create_order(client, order_mock, order_uri) -> dict:
+def create_order(client, order_uri, order_mock) -> dict:
     response = client.post(order_uri, json=order_mock)
     return response
 
