@@ -1,31 +1,31 @@
 import pytest
 
 
-"""
-- This first test will only check if the order was successfully created.
-- A more accurate test could be done, however, it requires the server running and
-running the server is not possible in GitHub actions. (Ticket already created)
-"""
-
-
 def test_create_order_service(create_order):
-    created_order = create_order
-    pytest.assume(created_order.status.startswith('308'))
+    order = create_order.json
+    pytest.assume(create_order.status.startswith('200'))
+    pytest.assume(order['_id'])
+    pytest.assume(order['client_address'])
+    pytest.assume(order['client_dni'])
+    pytest.assume(order['client_name'])
+    pytest.assume(order['client_phone'])
+    pytest.assume(order['date'])
+    pytest.assume(order['detail'])
+    pytest.assume(order['size'])
+    pytest.assume(order['total_price'])
 
 
-"""
-- With the first test passed, this second test will only check is the received values
-are the correct type due to we already know if the order was successfully created.
-"""
+def test_get_order_by_id_service(client, create_order, order_uri):
+    current_order = create_order.json
+    response = client.get(f'{order_uri}id/{current_order["_id"]}')
+    pytest.assume(response.status.startswith('200'))
+    returned_order = response.json
+    for param, value in current_order.items():
+        pytest.assume(returned_order[param] == value)
 
 
-def test_check_order_values(detail_created_order):
-    current_order_detail = detail_created_order
-    pytest.assume(type(current_order_detail['client_data']) == dict)
-    pytest.assume(type(current_order_detail['size_id']) == int)
-    returned_order_ids = current_order_detail['ingredients_ids']
-    for ingredient_id in returned_order_ids:
-        pytest.assume(type(ingredient_id) == int)
-    returned_order_names = current_order_detail['ingredients_names']
-    for ingredient_name in returned_order_names:
-        pytest.assume(type(ingredient_name) == str)
+def test_get_orders_service(client, create_orders, order_uri):
+    response = client.get(order_uri)
+    pytest.assume(response.status.startswith('200'))
+    for order in create_orders:
+        pytest.assume(order.status.startswith('200'))
