@@ -19,8 +19,8 @@ def __order(ingredients: list, size: dict, beverages: dict, client_data: dict):
 
 def __create_items(items: list, controller: BaseController):
     created_items = []
-    for ingredient in items:
-        created_item, _ = controller.create(ingredient)
+    for order_item in items:
+        created_item, _ = controller.create(order_item)
         created_items.append(created_item)
     return created_items
 
