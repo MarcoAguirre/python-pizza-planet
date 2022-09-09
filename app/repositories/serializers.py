@@ -41,7 +41,7 @@ class IngredientDetailSerializer(ma.SQLAlchemyAutoSchema):
 
 class BeverageDetailSerializer(ma.SQLAlchemyAutoSchema):
 
-    ingredient = ma.Nested(IngredientSerializer)
+    ingredient = ma.Nested(BeverageSerializer)
 
     class Meta:
         model = BeverageDetail
