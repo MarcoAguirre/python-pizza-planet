@@ -26,15 +26,16 @@ def beverages():
 
 
 @pytest.fixture
-def create_beverage(client, beverage_uri) -> dict:
-    response = client.post(beverage_uri, json=beverage_mock())
+def create_beverage(client, beverage_uri, beverage) -> dict:
+    response = client.post(beverage_uri, json=beverage)
+    print(response)
     return response
 
 
 @pytest.fixture
-def create_beverages(client, beverage_uri) -> list:
+def create_beverages(client, beverage_uri, beverage) -> list:
     beverages = []
     for _ in range(10):
-        new_beverage = client.post(beverage_uri, json=beverage_mock())
+        new_beverage = client.post(beverage_uri, json=beverage)
         beverages.append(new_beverage.json)
     return beverages
