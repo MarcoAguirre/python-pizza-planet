@@ -32,7 +32,7 @@ def create_beverage(client, beverage_uri) -> dict:
 
 
 @pytest.fixture
-def create_is(client, beverage_uri) -> list:
+def create_beverages(client, beverage_uri) -> list:
     beverages = []
     for _ in range(10):
         new_beverage = client.post(beverage_uri, json=beverage_mock())
