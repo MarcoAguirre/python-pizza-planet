@@ -11,6 +11,7 @@ def test_create_order_service(create_order):
     pytest.assume(order['client_phone'])
     pytest.assume(order['date'])
     pytest.assume(order['ingredient_detail'])
+    pytest.assume(order['beverage_detail'])
     pytest.assume(order['size'])
     pytest.assume(order['total_price'])
 

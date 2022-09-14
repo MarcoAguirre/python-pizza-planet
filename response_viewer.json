@@ -1,96 +1,178 @@
 {
     "_id": 1,
-    "client_address": "cwdqasliot",
-    "client_dni": "7636819733",
-    "client_name": "cdrkmvjsbq",
-    "client_phone": "5815618766",
-    "date": "2022-09-08T05: 31: 43.572632",
-    "detail": [
+    "beverage_detail": [
+        {
+            "beverage": {
+                "_id": 1,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 2,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 3,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 4,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 5,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 6,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 7,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 8,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 9,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        },
+        {
+            "beverage": {
+                "_id": 10,
+                "name": "smfnekztij",
+                "price": 19.55
+            },
+            "beverage_price": 19.55
+        }
+    ],
+    "client_address": "fnskoihvcz",
+    "client_dni": "4146403508",
+    "client_name": "gkjbsonwzm",
+    "client_phone": "5687178669",
+    "date": "2022-09-14T05: 41: 54.677492",
+    "ingredient_detail": [
         {
             "ingredient": {
                 "_id": 1,
-                "name": "qmrojdayil",
-                "price": 15.76
+                "name": "kztcnravif",
+                "price": 14.26
             },
-            "ingredient_price": 15.76
+            "ingredient_price": 14.26
         },
         {
             "ingredient": {
                 "_id": 2,
-                "name": "ebzcjyquhv",
-                "price": 18.55
+                "name": "tqvdkoynuc",
+                "price": 19.41
             },
-            "ingredient_price": 18.55
+            "ingredient_price": 19.41
         },
         {
             "ingredient": {
                 "_id": 3,
-                "name": "vnehkmasuf",
-                "price": 13.18
+                "name": "rkyfsomnqx",
+                "price": 18.88
             },
-            "ingredient_price": 13.18
+            "ingredient_price": 18.88
         },
         {
             "ingredient": {
                 "_id": 4,
-                "name": "dbmpgijkuy",
-                "price": 18.97
+                "name": "oemjpcvrtk",
+                "price": 16.75
             },
-            "ingredient_price": 18.97
+            "ingredient_price": 16.75
         },
         {
             "ingredient": {
                 "_id": 5,
-                "name": "zjnfirvpya",
-                "price": 17.87
+                "name": "pelktvmisr",
+                "price": 13.14
             },
-            "ingredient_price": 17.87
+            "ingredient_price": 13.14
         },
         {
             "ingredient": {
                 "_id": 6,
-                "name": "dhqxamgyzf",
-                "price": 19.7
+                "name": "qnymetwslz",
+                "price": 15.79
             },
-            "ingredient_price": 19.7
+            "ingredient_price": 15.79
         },
         {
             "ingredient": {
                 "_id": 7,
-                "name": "orcupiflnt",
-                "price": 17.32
+                "name": "bxongpjskq",
+                "price": 16.81
             },
-            "ingredient_price": 17.32
+            "ingredient_price": 16.81
         },
         {
             "ingredient": {
                 "_id": 8,
-                "name": "rghpcijbve",
-                "price": 16.0
+                "name": "zwimbfjksq",
+                "price": 18.32
             },
-            "ingredient_price": 16.0
+            "ingredient_price": 18.32
         },
         {
             "ingredient": {
                 "_id": 9,
-                "name": "fxvwzopusy",
-                "price": 19.19
+                "name": "fqosmtagzk",
+                "price": 12.93
             },
-            "ingredient_price": 19.19
+            "ingredient_price": 12.93
         },
         {
             "ingredient": {
                 "_id": 10,
-                "name": "mrvscwynla",
-                "price": 17.92
+                "name": "psiqrhjtly",
+                "price": 14.94
             },
-            "ingredient_price": 17.92
+            "ingredient_price": 14.94
         }
     ],
     "size": {
         "_id": 1,
-        "name": "bwzumxcgfh",
-        "price": 12.23
+        "name": "byqtjhwnes",
+        "price": 13.8
     },
-    "total_price": 186.69
+    "total_price": 370.53
 }
