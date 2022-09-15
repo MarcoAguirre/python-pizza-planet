@@ -1,3 +1,4 @@
+from tkinter.font import names
 from flask_seeder import Seeder, Faker, generator
 from app.repositories.models import Size, Ingredient, Beverage, Order
 
@@ -26,15 +27,41 @@ ingredient_list = ['Chicken', 'Cheese', 'Tomato',
 total_orders = 100
 
 
+class SequenceList(generator.Sequence):
+    # def __init__(self, start=1, end=100, **kwargs): #???????????????????????????
+    #     super().__init__(start, end, **kwargs)
+    def __init__(self, list: list):
+        super().__init__(start=0, end=len(list))
+        self._list = list
+
+    def generate(self):
+        value = self._next
+        self._next += 1
+
+        return self._list[value]
+
+
 class DbSeeder(Seeder):
     def generate_ingredients_or_beverages(self, model, order_component: list):
         fake_items = Faker(cls=model, init={
             "_id": generator.Sequence(end=total_orders),
-            "name": random.choice(order_component),
+            "name": SequenceList(order_component),
             "price": generator.Integer(start=1, end=13)
         })
 
         return fake_items
+
+    def generate_sizes(self):
+        size_names = [size['name'] for size in size_list]
+        size_prices = [size['price'] for size in size_list]
+
+        fake_sizes = Faker(cls=Size, init={
+            "_id": generator.Sequence(end=total_orders),
+            "name": SequenceList(size_names),
+            "price": SequenceList(size_prices)
+        })
+
+        return fake_sizes
 
     def save_data_in_corresponding_db(self, data):
         for db_register in data:
@@ -47,6 +74,9 @@ class DbSeeder(Seeder):
         beverages = [beverage for beverage in self.generate_ingredients_or_beverages(
             Beverage, beverage_list).create(len(beverage_list))]
 
+        sizes = [size for size in self.generate_sizes().create(len(size_list))]
+
+        self.save_data_in_corresponding_db(sizes)
         self.save_data_in_corresponding_db(ingredients)
         self.save_data_in_corresponding_db(beverages)
         # faker = Faker(
