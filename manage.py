@@ -7,9 +7,12 @@ from flask_migrate import Migrate
 
 from app import flask_app
 from app.plugins import db
+from flask_seeder import FlaskSeeder
 # flake8: noqa
 from app.repositories.models import Ingredient, Order, IngredientDetail, Size, Beverage
 
+seeder = FlaskSeeder()
+seeder.init_app(flask_app, db)
 
 manager = FlaskGroup(flask_app)
 
