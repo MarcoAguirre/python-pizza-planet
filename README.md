@@ -117,3 +117,10 @@ ext install ritwickdey.LiveServer
 ```bash
 python manage.py test
 ```
+### Fill the database
+
+- To be able to see if the database is working properly, filling it with data is required. It is not necessary to fill it with real data, filling with the correct type will be enough.
+- To do it so, you only have to run this command.
+```bash
+python manage.py seed run --root app/seeds
+```
