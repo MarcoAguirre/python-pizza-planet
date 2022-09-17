@@ -103,6 +103,23 @@ class DbSeeder(Seeder):
         for db_register in data:
             self.db.session.add(db_register)
 
+    def calculate_ingredient_total_price(self, ingredients: list, ingredients_detailed: list):
+        for ingredient_in_detail in ingredients_detailed:
+            ingredient_in_detail.ingredient_price = sum(
+                [ingredient.price for ingredient in ingredients
+                 if ingredient._id == ingredient_in_detail.ingredient_id])
+
+    def calculate_order_total_price(self, orders: list, sizes: list, orders_ingredients: list):
+        for order in orders:
+            total_ingredients = sum([
+                ingredient_detail.ingredient_price for ingredient_detail in orders_ingredients
+                if ingredient_detail.order_id == order._id])
+
+            size_total_price = sum(
+                [size.price for size in sizes if size._id == order.size_id])
+
+            order.total_price = total_ingredients + size_total_price
+
     def run(self):
         ingredients = [ingredient for ingredient in self.generate_ingredients_or_beverages(
             Ingredient, ingredient_list).create(len(ingredient_list))]
@@ -113,6 +130,9 @@ class DbSeeder(Seeder):
         sizes = [size for size in self.generate_sizes().create(len(size_list))]
 
         orders, ingredient_details = self.generate_orders()
+
+        self.calculate_ingredient_total_price(ingredients, ingredient_details)
+        self.calculate_order_total_price(orders, sizes, ingredient_details)
 
         self.save_data_in_corresponding_db(sizes)
         self.save_data_in_corresponding_db(ingredients)
