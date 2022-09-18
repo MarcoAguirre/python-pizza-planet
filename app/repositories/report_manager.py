@@ -45,7 +45,7 @@ class BaseReportManager:
                 for pos, customer in enumerate(loyal_customer)]
 
 
-class ReportManager:
+class ReportManager(BaseReportManager):
     order_model = Order
     ingredient_detail_model = IngredientDetail
 
