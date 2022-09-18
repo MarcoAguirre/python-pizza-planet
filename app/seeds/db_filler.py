@@ -94,7 +94,7 @@ class DbSeeder(Seeder):
         fake_order = Faker(cls=Order, init={
             "_id": generator.Sequence(end=total_orders),
             "client_name": CustomNameGenerator(),
-            "client_dni": generator.String('[0-9]'),
+            "client_dni": 'client',  # This DNI will have the client name too in order to be unique
             "client_address": generator.String('[a-m]'),
             "client_phone": generator.String('[0-9]'),
             "date": DateGenerator(start_date=datetime(1997, 6, 22, tzinfo=timezone.utc)),
@@ -127,6 +127,11 @@ class DbSeeder(Seeder):
 
     def calculate_order_total_price(self, orders: list, sizes: list, orders_ingredients: list):
         for order in orders:
+            '''
+            Here it is necessary to generate a unique DNI for client due to the String generator was assigning random DNIs
+            that means that if a repeated client exists, they both will have different DNIs
+            '''
+            order.client_dni += f'-{order.client_name}'
             total_ingredients = sum([
                 ingredient_detail.ingredient_price for ingredient_detail in orders_ingredients
                 if ingredient_detail.order_id == order._id])
