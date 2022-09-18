@@ -51,7 +51,7 @@ class ReportManager(BaseReportManager):
 
     @classmethod
     def create_report(cls):
-        most_requested_ingredient = cls.get_top_iget_most_requested_ingredientsgredient()
+        most_requested_ingredient = cls.get_most_requested_ingredients()
         most_revenued_months = cls.get_month_with_more_revenue()
         most_loyal_customer = cls.get_more_loyal_customer()
 
