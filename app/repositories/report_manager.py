@@ -36,7 +36,13 @@ class BaseReportManager:
 
     @ classmethod
     def get_more_loyal_customer(cls):
-        loyal_customer = cls.session.query()
+        loyal_customer = cls.session.query(cls.order_model.client_name, cls.order_model.client_dni,
+                                           func.count(cls.order_model.client_dni).label(
+                                               'count')
+                                           ).group_by(cls.order_model.client_dni).order_by(desc('count')).limit(3).all()
+
+        return [{'posicion': pos + 1, 'name': customer.client_name, 'dni': customer.client_dni}
+                for pos, customer in enumerate(loyal_customer)]
 
 
 class ReportManager:
