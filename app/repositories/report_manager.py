@@ -28,7 +28,11 @@ class BaseReportManager:
 
     @ classmethod
     def get_month_with_more_revenue(cls):
-        months_gotten = cls.session.query()
+        more_revenued_months = cls.session.query(func.strftime("%m", cls.order_model.date).label('month'),
+                                                 func.sum(cls.order_model.total_price).label('total')).group_by(
+            'month').order_by(desc('total')).first()
+
+        return {'month_number': more_revenued_months[0], 'total': more_revenued_months[1]}
 
     @ classmethod
     def get_more_loyal_customer(cls):
