@@ -59,10 +59,11 @@ class DateGenerator(generator.Generator):
         self._start_date = start_date
 
     def generate(self):
-        step = timedelta(days=8)
+        days_to_generate_dates = timedelta(days=8)
         end_date = datetime.now(timezone.utc)
         random_date = self._start_date + \
-            random.randrange((end_date - self._start_date) // step + 1) * step
+            random.randrange((end_date - self._start_date) //
+                             days_to_generate_dates + 1) * days_to_generate_dates
 
         return random_date
 
@@ -96,8 +97,7 @@ class DbSeeder(Seeder):
             "client_dni": generator.String('[0-9]'),
             "client_address": generator.String('[a-m]'),
             "client_phone": generator.String('[0-9]'),
-            # # tHIS LINE WILL NEED ITS OWN GENERATOR DUE TO WITH THIS FORM THE DATE WILL BE ALWAYS THE SAME
-            "date": datetime.now(timezone.utc),
+            "date": DateGenerator(start_date=datetime(1997, 6, 22, tzinfo=timezone.utc)),
             "total_price": 1,
             "size_id": generator.Integer(start=1, end=len(size_list))
         })
