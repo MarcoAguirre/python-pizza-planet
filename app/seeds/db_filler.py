@@ -1,6 +1,7 @@
 from app.repositories.models import IngredientDetail, Size, Ingredient, Beverage, Order
 from flask_seeder import Seeder, Faker, generator
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+import random
 
 size_list = [
     {'name': 'slice', 'price': 1.25},
@@ -49,6 +50,21 @@ class CustomNameGenerator(generator.Generator):
         result = self.rnd.choice(self._lines)
 
         return result
+
+
+class DateGenerator(generator.Generator):
+
+    def __init__(self, start_date: datetime, **kwargs):
+        super().__init__(**kwargs)
+        self._start_date = start_date
+
+    def generate(self):
+        step = timedelta(days=8)
+        end_date = datetime.now(timezone.utc)
+        random_date = self._start_date + \
+            random.randrange((end_date - self._start_date) // step + 1) * step
+
+        return random_date
 
 
 class DbSeeder(Seeder):
