@@ -26,7 +26,7 @@ class BaseReportManager:
 
         return most_requested_ingredient
 
-    @ classmethod
+    @classmethod
     def get_month_with_more_revenue(cls):
         more_revenued_months = cls.session.query(func.strftime("%m", cls.order_model.date).label('month'),
                                                  func.sum(cls.order_model.total_price).label('total')).group_by(
@@ -34,7 +34,7 @@ class BaseReportManager:
 
         return {'month_number': more_revenued_months[0], 'total': more_revenued_months[1]}
 
-    @ classmethod
+    @classmethod
     def get_more_loyal_customer(cls):
         loyal_customer = cls.session.query(cls.order_model.client_name, cls.order_model.client_dni,
                                            func.count(cls.order_model.client_dni).label(
