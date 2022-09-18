@@ -21,3 +21,7 @@ class BaseReportManager:
     @classmethod
     def get_more_loyal_customer(cls):
         loyal_customer = cls.session.query()
+
+
+class ReportManager:
+    pass
