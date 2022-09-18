@@ -1,6 +1,6 @@
 from ..repositories.report_manager import ReportManager
-from .base import BaseController
+from ..repositories.report_manager import BaseReportManager
 
 
-class ReportController(BaseController):
+class ReportController(BaseReportManager):
     manager = ReportManager
