@@ -36,7 +36,7 @@ class SequenceList(generator.Sequence):
         return self._list[value]
 
 
-class CustomName(generator.Generator):
+class CustomNameGenerator(generator.Generator):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self._lines = None
@@ -76,7 +76,7 @@ class DbSeeder(Seeder):
     def generate_orders(self):
         fake_order = Faker(cls=Order, init={
             "_id": generator.Sequence(end=total_orders),
-            "client_name": CustomName(),
+            "client_name": CustomNameGenerator(),
             "client_dni": generator.String('[0-9]'),
             "client_address": generator.String('[a-m]'),
             "client_phone": generator.String('[0-9]'),
