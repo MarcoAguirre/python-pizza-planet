@@ -1,6 +1,6 @@
-from typing import Any, List, Optional, Sequence
+from typing import Optional, Sequence
 
-from .models import BeverageDetail, Ingredient, Order, IngredientDetail, Size, Beverage, db
+from .models import Ingredient, Order, IngredientDetail, db
 
 from sqlalchemy import func, desc
 
@@ -46,4 +46,17 @@ class BaseReportManager:
 
 
 class ReportManager:
-    pass
+    order_model = Order
+    ingredient_detail_model = IngredientDetail
+
+    @classmethod
+    def create_report(cls):
+        most_requested_ingredient = cls.get_top_iget_most_requested_ingredientsgredient()
+        most_revenued_months = cls.get_month_with_more_revenue()
+        most_loyal_customer = cls.get_more_loyal_customer()
+
+        return {
+            'ingredient': most_requested_ingredient,
+            'month': most_revenued_months,
+            'customer': most_loyal_customer
+        }
