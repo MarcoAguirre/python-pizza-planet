@@ -12,9 +12,9 @@ class BaseReportManager:
 
     @classmethod
     def get_most_requested_ingredients(cls):
-        ingredients_chosen_count = cls.session.query(func.count(cls.order_detail_model.ingredient_id).label('count'),
-                                                     cls.order_detail_model.ingredient_id).group_by(
-            cls.order_detail_model.ingredient_id).order_by(desc('count')).first()
+        ingredients_chosen_count = cls.session.query(func.count(cls.ingredient_detail_model.ingredient_id).label('count'),
+                                                     cls.ingredient_detail_model.ingredient_id).group_by(
+            cls.ingredient_detail_model.ingredient_id).order_by(desc('count')).first()
 
         ingredient = Ingredient.query.get(
             ingredients_chosen_count.ingredient_id)
