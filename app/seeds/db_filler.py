@@ -8,6 +8,7 @@ size_list = [
     {'name': 'personal', 'price': 1.25},
     {'name': 'medium', 'price': 1.25},
     {'name': 'big', 'price': 1.25},
+    {'name': 'familiar', 'price': 1.25},
 ]
 
 beverage_list = ['Coca-cola', 'Fanta', 'Sprite', 'Fiora', 'Gallito']
