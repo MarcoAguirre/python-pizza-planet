@@ -12,8 +12,8 @@ size_list = [
 
 beverage_list = ['Coca-cola', 'Fanta', 'Sprite', 'Fiora', 'Gallito']
 
-ingredient_list = ['Chicken', 'Cheese', 'Tomato',
-                   'Pepper', 'Salami', 'Jam', 'Mushrooms']
+ingredient_list = ['Chicken', 'Cheese', 'Tomato', 'Pepper', 'Salami',
+                   'Jam', 'Mushrooms', 'Pinaple', 'Onion', 'Sauce']
 
 total_orders = 100
 
