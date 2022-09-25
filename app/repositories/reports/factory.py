@@ -12,9 +12,9 @@ class IReportFactory(ABC):
 
 class ReportFactory(IReportFactory):
     def __init__(self):
+        self._session = db.session
         self._order = Order
         self._ingredient_detail = IngredientDetail
-        self._session = db.session
         self._ingredient = Ingredient
 
     def get_created_report(self) -> IReport:
