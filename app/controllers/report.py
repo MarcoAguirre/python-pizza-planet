@@ -1,5 +1,5 @@
-from ..repositories.report_manager import ReportManager
-from ..repositories.report_manager import BaseReportManager
+from ..repositories.reports.report_manager import ReportManager
+from ..repositories.reports.report_manager import BaseReportManager
 
 
 class ReportController(BaseReportManager):
