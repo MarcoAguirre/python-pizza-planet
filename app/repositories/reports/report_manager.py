@@ -15,6 +15,12 @@ class IReport(ABC):
 
 class ReportManager(IReport):
 
+    def __init__(self, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
+        self._session = session
+        self._order = order
+        self._ingredient_detail = ingredient_detail
+        self._ingredient = ingredient
+
     @classmethod
     def get_most_requested_ingredients(cls):
         ingredients_chosen_count = cls.session.query(func.count(cls.ingredient_detail_model.ingredient_id).label('count'),
