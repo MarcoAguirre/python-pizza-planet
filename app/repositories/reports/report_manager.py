@@ -1,7 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Optional, Sequence
-
-from ..models import Ingredient, Order, IngredientDetail, db
 
 from sqlalchemy import func, desc
 
