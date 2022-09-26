@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 from sqlalchemy import func, desc
 
+from ..models import db
+
 
 class IReport(ABC):
 
@@ -11,19 +13,18 @@ class IReport(ABC):
 
 
 class ReportManager(IReport):
-    def __init__(cls, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
-        cls._session = session
-        cls._order = order
-        cls._ingredient_detail = ingredient_detail
-        cls._ingredient = ingredient
+    def __init__(self, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
+        self._session = session
+        self._order = order
+        self._ingredient_detail = ingredient_detail
+        self._ingredient = ingredient
 
-    @classmethod
-    def get_most_requested_ingredients(cls):
-        ingredients_chosen_count = cls._session.query(func.count(cls._ingredient_detail.ingredient_id).label('count'),
-                                                      cls._ingredient_detail.ingredient_id).group_by(
-            cls._ingredient_detail.ingredient_id).order_by(desc('count')).first()
+    def get_most_requested_ingredients(self):
+        ingredients_chosen_count = self._session.query(func.count(self._ingredient_detail.ingredient_id).label('count'),
+                                                       self._ingredient_detail.ingredient_id).group_by(
+            self._ingredient_detail.ingredient_id).order_by(desc('count')).first()
 
-        ingredient = cls._ingredient.query.get(
+        ingredient = self._ingredient.query.get(
             ingredients_chosen_count.ingredient_id)
 
         most_requested_ingredient = {
@@ -33,29 +34,26 @@ class ReportManager(IReport):
 
         return most_requested_ingredient
 
-    @classmethod
-    def get_month_with_more_revenue(cls):
-        more_revenued_months = cls._session.query(func.strftime("%m", cls._order.date).label('month'),
-                                                  func.sum(cls._order.total_price).label('total')).group_by(
+    def get_month_with_more_revenue(self):
+        more_revenued_months = self._session.query(func.strftime("%m", self._order.date).label('month'),
+                                                   func.sum(self._order.total_price).label('total')).group_by(
             'month').order_by(desc('total')).first()
 
         return {'month_number': more_revenued_months[0], 'total': more_revenued_months[1]}
 
-    @classmethod
-    def get_more_loyal_customer(cls):
-        loyal_customer = cls._session.query(cls._order.client_name, cls._order.client_dni,
-                                            func.count(cls._order.client_dni).label(
-                                                'count')
-                                            ).group_by(cls._order.client_dni).order_by(desc('count')).limit(3).all()
+    def get_more_loyal_customer(self):
+        loyal_customer = self._session.query(self._order.client_name, self._order.client_dni,
+                                             func.count(self._order.client_dni).label(
+                                                 'count')
+                                             ).group_by(self._order.client_dni).order_by(desc('count')).limit(3).all()
 
         return [{'position': pos + 1, 'name': customer.client_name, 'dni': customer.client_dni}
                 for pos, customer in enumerate(loyal_customer)]
 
-    @classmethod
-    def create_report(cls):
-        most_requested_ingredient = cls.get_most_requested_ingredients()
-        most_revenued_months = cls.get_month_with_more_revenue()
-        most_loyal_customer = cls.get_more_loyal_customer()
+    def create_report(self):
+        most_requested_ingredient = self.get_most_requested_ingredients()
+        most_revenued_months = self.get_month_with_more_revenue()
+        most_loyal_customer = self.get_more_loyal_customer()
 
         return {
             'ingredient': most_requested_ingredient,
