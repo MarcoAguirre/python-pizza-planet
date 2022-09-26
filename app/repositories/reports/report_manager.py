@@ -14,11 +14,11 @@ class IReport(ABC):
 
 
 class ReportManager(IReport):
-    def __init__(self, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
-        self._session = session
-        self._order = order
-        self._ingredient_detail = ingredient_detail
-        self._ingredient = ingredient
+    def __init__(cls, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
+        cls._session = session
+        cls._order = order
+        cls._ingredient_detail = ingredient_detail
+        cls._ingredient = ingredient
 
     @classmethod
     def get_most_requested_ingredients(cls):
@@ -26,7 +26,7 @@ class ReportManager(IReport):
                                                       cls._ingredient_detail.ingredient_id).group_by(
             cls._ingredient_detail.ingredient_id).order_by(desc('count')).first()
 
-        ingredient = self._ingredient.query.get(
+        ingredient = cls._ingredient.query.get(
             ingredients_chosen_count.ingredient_id)
 
         most_requested_ingredient = {
