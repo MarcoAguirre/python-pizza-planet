@@ -14,7 +14,6 @@ class IReport(ABC):
 
 
 class ReportManager(IReport):
-
     def __init__(self, session: db.session, order: db.Model, ingredient_detail: db.Model, ingredient: db.Model):
         self._session = session
         self._order = order
@@ -23,11 +22,11 @@ class ReportManager(IReport):
 
     @classmethod
     def get_most_requested_ingredients(cls):
-        ingredients_chosen_count = cls.session.query(func.count(cls.ingredient_detail_model.ingredient_id).label('count'),
-                                                     cls.ingredient_detail_model.ingredient_id).group_by(
-            cls.ingredient_detail_model.ingredient_id).order_by(desc('count')).first()
+        ingredients_chosen_count = cls._session.query(func.count(cls._ingredient_detail.ingredient_id).label('count'),
+                                                      cls._ingredient_detail.ingredient_id).group_by(
+            cls._ingredient_detail.ingredient_id).order_by(desc('count')).first()
 
-        ingredient = Ingredient.query.get(
+        ingredient = self._ingredient.query.get(
             ingredients_chosen_count.ingredient_id)
 
         most_requested_ingredient = {
@@ -39,18 +38,18 @@ class ReportManager(IReport):
 
     @classmethod
     def get_month_with_more_revenue(cls):
-        more_revenued_months = cls.session.query(func.strftime("%m", cls.order_model.date).label('month'),
-                                                 func.sum(cls.order_model.total_price).label('total')).group_by(
+        more_revenued_months = cls._session.query(func.strftime("%m", cls._order.date).label('month'),
+                                                  func.sum(cls._order.total_price).label('total')).group_by(
             'month').order_by(desc('total')).first()
 
         return {'month_number': more_revenued_months[0], 'total': more_revenued_months[1]}
 
     @classmethod
     def get_more_loyal_customer(cls):
-        loyal_customer = cls.session.query(cls.order_model.client_name, cls.order_model.client_dni,
-                                           func.count(cls.order_model.client_dni).label(
-                                               'count')
-                                           ).group_by(cls.order_model.client_dni).order_by(desc('count')).limit(3).all()
+        loyal_customer = cls._session.query(cls._order.client_name, cls._order.client_dni,
+                                            func.count(cls._order.client_dni).label(
+                                                'count')
+                                            ).group_by(cls._order.client_dni).order_by(desc('count')).limit(3).all()
 
         return [{'position': pos + 1, 'name': customer.client_name, 'dni': customer.client_dni}
                 for pos, customer in enumerate(loyal_customer)]
