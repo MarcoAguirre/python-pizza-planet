@@ -1,9 +1,6 @@
-from ..repositories.reports.report_manager import ReportManager
-from ..repositories.reports.report_manager import BaseReportManager
+from..repositories.reports.factory import ReportFactory
 
 
-class ReportController(BaseReportManager):
-    manager = ReportManager
-
+class ReportController():
     def create_report(self):
-        return self.manager.create_report()
+        return ReportFactory().get_created_report().create_report()
