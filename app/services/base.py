@@ -1,12 +1,10 @@
 from app.common.http_methods import GET, POST, PUT
 from flask import jsonify, request
 
-from ..controllers.base import BaseController
-
 
 class BaseService():
 
-    def __init__(self, base_controller: BaseController):
+    def __init__(self, base_controller):
         self.base_controller = base_controller
 
     def create(self):
