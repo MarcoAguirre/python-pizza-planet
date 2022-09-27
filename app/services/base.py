@@ -9,7 +9,7 @@ class BaseService():
     def __init__(self, base_controller: BaseController):
         self.base_controller = base_controller
 
-    def create(self, request):
+    def create(self):
         base_controller, error = self.base_controller.create(request.json)
         response = base_controller if not error else {'error': error}
         status_code = 200 if not error else 400
