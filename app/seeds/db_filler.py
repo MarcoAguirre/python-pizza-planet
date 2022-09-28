@@ -2,6 +2,8 @@ from app.repositories.models import IngredientDetail, Size, Ingredient, Beverage
 from flask_seeder import Seeder, Faker, generator
 from datetime import datetime, timezone
 
+from app.seeds.custom_generators import SequenceList, CustomNameGenerator, DateGenerator
+
 size_list = [
     {'name': 'slice', 'price': 1.25},
     {'name': 'personal', 'price': 1.25},
