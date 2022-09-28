@@ -37,11 +37,8 @@ def __sum_all_prices(ingredient_total_price, beverage_total_price):
     return order_items_total_price
 
 
-def test_create(app, ingredients, beverages, size, client_data):
-    created_size, created_ingredients, created_beverages = __create_sizes_ingredients_and_beverages(
-        ingredients, [size], beverages)
-    order = __order(created_ingredients, created_size,
-                    created_beverages, client_data)
+def test_create(app, order_mock):
+    order = order_mock
     created_order, error = OrderController.create(order)
     size_id = order.pop('size_id', None)
     ingredient_ids = order.pop('ingredients', [])
@@ -68,6 +65,11 @@ def test_calculate_order_price(app, ingredients, beverages, size, client_data):
                                  for ingredient in created_ingredients)
     beverage_total_price = sum(beverage['price']
                                for beverage in created_beverages)
+    '''
+    Here the _order function is needed because the fixture returns arrays only
+    with beverages, ingredients and size IDs and it is not possible to make a
+    good assumption in this test
+    '''
     order = __order(created_ingredients, created_size,
                     created_beverages, client_data)
     created_order, _ = OrderController.create(order)
@@ -75,11 +77,8 @@ def test_calculate_order_price(app, ingredients, beverages, size, client_data):
         created_size['price'] + __sum_all_prices(ingredient_total_price, beverage_total_price), 2))
 
 
-def test_get_by_id(app, ingredients, beverages, size, client_data):
-    created_size, created_ingredients, created_beverages = __create_sizes_ingredients_and_beverages(
-        ingredients, [size], beverages)
-    order = __order(created_ingredients, created_size,
-                    created_beverages, client_data)
+def test_get_by_id(app, order_mock):
+    order = order_mock
     created_order, _ = OrderController.create(order)
     order_from_db, error = OrderController.get_by_id(created_order['_id'])
     size_id = order.pop('size_id', None)
@@ -94,19 +93,15 @@ def test_get_by_id(app, ingredients, beverages, size, client_data):
         pytest.assume(not ingredients_in_detail.difference(ingredient_ids))
 
 
-def test_get_all(app, ingredients, beverages, sizes, client_data):
-    created_sizes, created_ingredients, created_beverages = __create_sizes_ingredients_and_beverages(
-        ingredients, sizes, beverages)
+def test_get_all(app, order_mock):
     created_orders = []
     for _ in range(5):
-        order = __order(shuffle_list(created_ingredients)[
-                        :3], get_random_choice(created_sizes), shuffle_list(created_beverages)[:3], client_data)
+        order = order_mock
         created_order, _ = OrderController.create(order)
         created_orders.append(created_order)
 
     orders_from_db, error = OrderController.get_all()
-    searchable_orders = {db_order['_id']
-        : db_order for db_order in orders_from_db}
+    searchable_orders = {db_order['_id']                         : db_order for db_order in orders_from_db}
     pytest.assume(error is None)
     for created_order in created_orders:
         current_id = created_order['_id']
